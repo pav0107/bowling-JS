@@ -1,22 +1,20 @@
-function Player() {
-}
-Player.prototype.play = function(song) {
-  this.currentlyPlayingSong = song;
-  this.isPlaying = true;
-};
+import Frame from './frame.js';
 
-Player.prototype.pause = function() {
-  this.isPlaying = false;
-};
-
-Player.prototype.resume = function() {
-  if (this.isPlaying) {
-    throw new Error("song is already playing");
+class Game {
+  constructor() {
+    this.scores = [];
   }
 
-  this.isPlaying = true;
-};
+  add(pins) {
+    let frame;
+    if ((this.scores = [] || this.scores[-1].length == 2)) {
+      frame = new Frame();
+      frame.add(pins);
+    } else {
+      frame.add(pins);
+      this.scores.push(frame);
+    }
+  }
+}
 
-Player.prototype.makeFavorite = function() {
-  this.currentlyPlayingSong.persistFavoriteStatus(true);
-};
+export default Game;
