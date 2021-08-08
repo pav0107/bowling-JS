@@ -1,20 +1,26 @@
-import Frame from './frame.js';
-
 class Game {
   constructor() {
     this.scores = [];
+    this.validFirstPins = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   }
 
   add(pins) {
-    let frame;
-    if ((this.scores = [] || this.scores[-1].length == 2)) {
-      frame = new Frame();
-      frame.add(pins);
+    if (this.isStartOfGame() || this.isFirstRollOfFrame()) {
+      console.log(this.validFirstPins.includes(pins));
+      if (!this.validFirstPins.includes(pins))
+        throw new Error('must be a valid number');
+
+      pins == 10 ? this.scores.push([10, 0]) : this.scores.push([pins]);
     } else {
-      frame.add(pins);
-      this.scores.push(frame);
+      this.scores[this.scores.length - 1].push(pins);
     }
   }
-}
 
-export default Game;
+  isStartOfGame() {
+    return this.scores.length == 0;
+  }
+
+  isFirstRollOfFrame() {
+    return this.scores[this.scores.length - 1].length == 2;
+  }
+}
